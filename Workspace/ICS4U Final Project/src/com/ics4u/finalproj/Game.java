@@ -3,8 +3,11 @@ package com.ics4u.finalproj;
 import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferStrategy;
 import java.util.Random;
+
+import javax.swing.ImageIcon;
 
 public class Game extends Canvas implements Runnable{
 	
@@ -13,19 +16,19 @@ public class Game extends Canvas implements Runnable{
 	 */
 	
 	private static final long serialVersionUID = 1L;
-
 	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 	
 	private Thread thread;
 	private boolean running = false;
 	private Handler handler;
+	private String background = "/Users/dwijetunga/Documents/School 2019-2020/ICS4U/Final Project/Workspace/ICS4U Final Project/res/infiniteBackgroundTemp.png";
 	//private int highScore;
 	
-	public HUD hud;
+	
+	public static HUD hud;
 	public static Player player;
 	public Spawn spawner;
 	public Menu menu;
-	
 	
 	public enum STATE {
 		Menu,
@@ -43,11 +46,12 @@ public class Game extends Canvas implements Runnable{
 		this.addKeyListener(new KeyInput(handler));
 		menu = new Menu(this, handler);
 		this.addMouseListener(menu);
-		
+		hud = new HUD(this);
 		//creating visual aspects of game
 		new Window(WIDTH, HEIGHT, "Final Game", this);
 		hud = new HUD(this);
 		spawner = new Spawn(handler, hud);
+		spawner.spawnEnemy();
 		startGame(handler);
 	}
 
@@ -74,10 +78,11 @@ public class Game extends Canvas implements Runnable{
 		}
 	}
 	
-	//some code to make the ticking and rendering work properly
+	//some code to make the ticking and rendering work properly (taken from the Internet)
 	public void run() {
 		//requests focus to the window
 		this.requestFocus();
+		
 		long lastTime = System.nanoTime();
 		double amountOfTicks = 60.0;
 		double ns = 1000000000/ amountOfTicks;
@@ -115,7 +120,7 @@ public class Game extends Canvas implements Runnable{
 //				highScore = hud.getScore();
 //				setHighScore();
 //			}
-		}else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.GameOver){
+		} else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.GameOver){
 			menu.tick();
 		}
 		
@@ -130,9 +135,8 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		Graphics g = bs.getDrawGraphics();
-		
 		g.setColor(Color.black);
-		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.fillRect(0, 0, WIDTH, HEIGHT);	
 		
 		handler.render(g);
 		
@@ -157,6 +161,11 @@ public class Game extends Canvas implements Runnable{
 			return var = min;
 		else
 			return var;
+	}
+	
+	public Image getBackgroundImage() {
+		ImageIcon i = new ImageIcon(getClass().getResource(background));
+		return i.getImage();
 	}
 	
 	

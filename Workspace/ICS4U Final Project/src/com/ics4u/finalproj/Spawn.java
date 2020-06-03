@@ -28,5 +28,9 @@ public class Spawn {
 		return levelLength;
 	}
 	
+	public void spawnEnemy() {
+		handler.addObject(new BasicEnemy(15, 15, ID.BasicEnemy, 16, 16));
+	}
+	
 
 }

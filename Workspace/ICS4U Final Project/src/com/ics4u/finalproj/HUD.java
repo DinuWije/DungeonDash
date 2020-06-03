@@ -13,7 +13,7 @@ public class HUD {
 		this.game = game;
 	}
 	
-	public static int HEALTH = 100;
+	public int HEALTH = 100;
 	
 	private int score = 0;
 	private int tempScore;
@@ -77,6 +77,14 @@ public class HUD {
 	
 	public int getTempScore() {
 		return tempScore;
+	}
+	
+	public int getHealth() {
+		return HEALTH;
+	}
+	
+	public void setHealth(int HEALTH) {
+		this.HEALTH = HEALTH;
 	}
 	
 }

@@ -17,8 +17,8 @@ public class Player extends GameObject{
 		this.rect.y = y;
 		
 		//prevents player from leaving bounds of game (doesn't force the player to bounce off walls)	
-		x = Game.clamp(x, 0, Game.WIDTH-38);
-		y = Game.clamp(y, 0, Game.HEIGHT-60);
+		x = Game.clamp(x, 0, Game.WIDTH-33);
+		y = Game.clamp(y, 0, Game.HEIGHT-55);
 	}
 	
 	public void render(Graphics g) {
