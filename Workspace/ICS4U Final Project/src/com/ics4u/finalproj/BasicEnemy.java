@@ -13,15 +13,14 @@ public class BasicEnemy extends GameObject{
 	}
 
 	public void tick() {
-		if (this.x < Game.player.getX()) x += velX;
-		else if (this.x > Game.player.getX())x -= velX;
+		if (this.x < PlayGame.player.getX()) x += velX;
+		else if (this.x > PlayGame.player.getX())x -= velX;
 		
-		if (this.y < Game.player.getY()) y += velY;
-		else if (this.y > Game.player.getY()) y -= velY;
+		if (this.y < PlayGame.player.getY()) y += velY;
+		else if (this.y > PlayGame.player.getY()) y -= velY;
 		
-		if (this.rect.intersects(Game.player.rect)) {
+		if (this.rect.intersects(PlayGame.player.rect)) {
 			Game.hud.setHealth(Game.hud.getHealth() - 1);
-			System.out.println(Game.hud.getHealth());
 			this.setVelX(0);
 			this.setVelY(0);
 			

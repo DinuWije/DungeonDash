@@ -7,8 +7,10 @@ public class Spawn {
 	private Handler handler;
 	private HUD hud;
 	private int scoreKeep = 0;
-	private Random r = new Random();
+	private static Random rand = new Random();
+	
 	private static int levelLength = 500;
+	
 	
 	public Spawn(Handler handler, HUD hud) {
 		this.handler = handler;
@@ -29,8 +31,14 @@ public class Spawn {
 	}
 	
 	public void spawnEnemy() {
-		handler.addObject(new BasicEnemy(15, 15, ID.BasicEnemy, 16, 16));
+		int xCoord = randInt(0, Game.WIDTH);
+		int yCoord = randInt(0, Game.HEIGHT);
+		handler.addObject(new BasicEnemy(xCoord, yCoord, ID.BasicEnemy, 16, 16));
 	}
 	
+	public static int randInt(int min, int max) {
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+	    return randomNum;
+	}
 
 }

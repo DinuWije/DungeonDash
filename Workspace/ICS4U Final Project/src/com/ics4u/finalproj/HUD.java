@@ -49,6 +49,9 @@ public class HUD {
 			g.fillRect(15, 15, HEALTH * 2, 32);
 		} else {
 			Game.gameState = Game.STATE.GameOver;
+			resetValues();
+			game.getHandler().killAllEntities();
+			
 		}
 		
 		
@@ -85,6 +88,13 @@ public class HUD {
 	
 	public void setHealth(int HEALTH) {
 		this.HEALTH = HEALTH;
+	}
+	
+	public void resetValues() {
+		HEALTH = 100;
+		score = 0;
+		tempScore = 0;
+		level = 1;
 	}
 	
 }

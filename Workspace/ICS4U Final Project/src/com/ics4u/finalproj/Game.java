@@ -26,9 +26,12 @@ public class Game extends Canvas implements Runnable{
 	
 	
 	public static HUD hud;
-	public static Player player;
+	
 	public Spawn spawner;
 	public Menu menu;
+	public PlayGame playGame;
+	public GameOver gameOver;
+	
 	
 	public enum STATE {
 		Menu,
@@ -43,23 +46,18 @@ public class Game extends Canvas implements Runnable{
 	public Game() {
 		//adding key objects to game
 		handler = new Handler();
-		this.addKeyListener(new KeyInput(handler));
 		menu = new Menu(this, handler);
 		this.addMouseListener(menu);
 		hud = new HUD(this);
-		//creating visual aspects of game
-		new Window(WIDTH, HEIGHT, "Final Game", this);
-		hud = new HUD(this);
 		spawner = new Spawn(handler, hud);
-		spawner.spawnEnemy();
-		startGame(handler);
-	}
-
-	public static void startGame(Handler handler) {
-		Random r = new Random();
-		gameState = STATE.Game;
-		player = new Player(Game.WIDTH/2-32, Game.HEIGHT/2-32, ID.Player, 32, 32);
-		handler.addObject(player);
+		playGame = new PlayGame(this);
+		gameOver = new GameOver();
+		this.addKeyListener(new KeyInput(handler, playGame));
+		
+		//creating game Window
+		new Window(WIDTH, HEIGHT, "Final Game", this);
+	
+//		startGame(handler, hud);
 	}
 	
 	//starts/stops thread
@@ -120,9 +118,8 @@ public class Game extends Canvas implements Runnable{
 //				highScore = hud.getScore();
 //				setHighScore();
 //			}
-		} else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.GameOver){
-			menu.tick();
-		}
+		} else if (gameState == STATE.Menu || gameState == STATE.Help) menu.tick();
+		else if (gameState == STATE.GameOver) gameOver.tick();
 		
 	}
 	
@@ -141,12 +138,9 @@ public class Game extends Canvas implements Runnable{
 		handler.render(g);
 		
 		//different visuals for different game states
-//		if(gameState == STATE.Game) {
-//			hud.render(g);
-//		} else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.GameOver || gameState == STATE.Pause){
-//			menu.render(g);
-//			
-//		}
+		if(gameState == STATE.Game) hud.render(g);
+		else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.Pause) menu.render(g);
+		else if (gameState == STATE.GameOver) gameOver.render(g);
 		bs.show();
 		g.dispose();
 		
@@ -163,14 +157,14 @@ public class Game extends Canvas implements Runnable{
 			return var;
 	}
 	
-	public Image getBackgroundImage() {
-		ImageIcon i = new ImageIcon(getClass().getResource(background));
-		return i.getImage();
-	}
-	
 	
 	public static void main(String[] args) {
 		new Game();
+	}
+	
+	//getters and setters
+	public Handler getHandler() {
+		return handler;
 	}
 
 }

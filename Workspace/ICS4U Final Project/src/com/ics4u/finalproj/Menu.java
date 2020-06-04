@@ -13,7 +13,6 @@ public class Menu extends MouseAdapter{
 	private Game game;
 	private Handler handler;
 	private Random r;
-	Player player;
 	
 	public Menu(Game game, Handler handler) {
 		this.game = game;
@@ -29,14 +28,14 @@ public class Menu extends MouseAdapter{
 		Font fnt = new Font("arial", 1, 50);
 		Font fnt2 = new Font("arial", 1, 30);
 		Font fnt3 = new Font("arial", 1, 15);
+		
 		g.setColor(Color.white);
 		
-		//different graphics & screens for different game states
 		if (Game.gameState == Game.STATE.Menu) {
-			g.setFont(fnt);
-			g.drawString("Final Project", 210, 70);
-						
+			g.setFont(fnt2);
+			g.drawString("Press Space to Begin", 155, 100);
 		} 
+		
 	}
 	
 

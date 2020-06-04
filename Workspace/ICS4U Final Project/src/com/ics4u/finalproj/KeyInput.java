@@ -9,9 +9,11 @@ public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
 	private boolean[] keyDown = new boolean[4];
+	private PlayGame playGame;
 	
-	public KeyInput(Handler handler) {
+	public KeyInput(Handler handler, PlayGame playGame) {
 		this.handler = handler;
+		this.playGame = playGame;
 		
 		// sets initial positions of keys as UP
 		for (int i = 0; i < 4; i++) {
@@ -47,9 +49,14 @@ public class KeyInput extends KeyAdapter{
 						}
 				}
 			}
+		} else if(Game.gameState == Game.STATE.Menu) {
+			if(key == KeyEvent.VK_SPACE) playGame.startGame(handler, Game.hud);
+		} else if (Game.gameState == Game.STATE.GameOver) {
+			if(key == KeyEvent.VK_SPACE) Game.gameState = Game.STATE.Menu;
 		}
 		//quits game on escape
 		if(key == KeyEvent.VK_ESCAPE) System.exit(1);
+		
 	}
 	
 	public void keyReleased(KeyEvent e) {
@@ -61,10 +68,10 @@ public class KeyInput extends KeyAdapter{
 				
 				if(tempObject.getId() == ID.Player) {
 					//key events for player 1
-					if(key == KeyEvent.VK_W) keyDown[0] = false; //tempObject.setVelY(0);
-					if(key == KeyEvent.VK_S) keyDown[1] = false; //tempObject.setVelY(0);
-					if(key == KeyEvent.VK_A) keyDown[2] = false; //tempObject.setVelX(0);
-					if(key == KeyEvent.VK_D) keyDown[3] = false;  //tempObject.setVelX(0);
+					if(key == KeyEvent.VK_W) keyDown[0] = false; 
+					if(key == KeyEvent.VK_S) keyDown[1] = false; 
+					if(key == KeyEvent.VK_A) keyDown[2] = false; 
+					if(key == KeyEvent.VK_D) keyDown[3] = false;
 				
 					//vertical movement
 					if(!keyDown[0] && !keyDown[1]) tempObject.setVelY(0);
