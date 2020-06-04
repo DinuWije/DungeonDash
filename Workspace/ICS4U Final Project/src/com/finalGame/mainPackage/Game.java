@@ -1,4 +1,4 @@
-package com.ics4u.finalproj;
+package com.finalGame.mainPackage;
 
 import java.awt.Canvas;
 import java.awt.Color;
@@ -9,6 +9,11 @@ import java.util.Random;
 
 import javax.swing.ImageIcon;
 
+import com.finalGame.gameObjects.Player;
+import com.finalGame.gameScreens.GameOver;
+import com.finalGame.gameScreens.Menu;
+import com.finalGame.gameScreens.PlayGame;
+
 public class Game extends Canvas implements Runnable{
 	
 	/**
@@ -16,23 +21,20 @@ public class Game extends Canvas implements Runnable{
 	 */
 	
 	private static final long serialVersionUID = 1L;
-	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
+	private static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
 	
 	private Thread thread;
 	private boolean running = false;
 	private Handler handler;
-	private String background = "/Users/dwijetunga/Documents/School 2019-2020/ICS4U/Final Project/Workspace/ICS4U Final Project/res/infiniteBackgroundTemp.png";
+	private HUD hud;
+	private Spawn spawner;
+	private Menu menu;
+	private PlayGame playGame;
+	private GameOver gameOver;
+	
 	//private int highScore;
-	
-	
-	public static HUD hud;
-	
-	public Spawn spawner;
-	public Menu menu;
-	public PlayGame playGame;
-	public GameOver gameOver;
-	
-	
+	//private String background = "/Users/dwijetunga/Documents/School 2019-2020/ICS4U/Final Project/Workspace/ICS4U Final Project/res/infiniteBackgroundTemp.png";	
+
 	public enum STATE {
 		Menu,
 		Game,
@@ -43,31 +45,34 @@ public class Game extends Canvas implements Runnable{
 	
 	public static STATE gameState = STATE.Menu;
 	
+	public static void main(String[] args) {
+		new Game();
+	}
+	
 	public Game() {
 		//adding key objects to game
 		handler = new Handler();
-		menu = new Menu(this, handler);
-		this.addMouseListener(menu);
-		hud = new HUD(this);
-		spawner = new Spawn(handler, hud);
+		menu = new Menu(this);
+		//this.addMouseListener(menu);
+		spawner = new Spawn(this );
 		playGame = new PlayGame(this);
-		gameOver = new GameOver();
-		this.addKeyListener(new KeyInput(handler, playGame));
+		gameOver = new GameOver(this);
+		hud = new HUD(this);
+		this.addKeyListener(new KeyInput(this));
 		
 		//creating game Window
 		new Window(WIDTH, HEIGHT, "Final Game", this);
 	
-//		startGame(handler, hud);
 	}
 	
 	//starts/stops thread
-	public synchronized void start() {
+	protected synchronized void start() {
 		thread = new Thread(this);
 		thread.start();
 		running = true;
 	}
 	
-	public synchronized void stop() {
+	protected synchronized void stop() {
 		try{
 			thread.join();
 			running = false;
@@ -138,7 +143,10 @@ public class Game extends Canvas implements Runnable{
 		handler.render(g);
 		
 		//different visuals for different game states
-		if(gameState == STATE.Game) hud.render(g);
+		if(gameState == STATE.Game) {
+			hud.render(g);
+			playGame.render(g);
+		}
 		else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.Pause) menu.render(g);
 		else if (gameState == STATE.GameOver) gameOver.render(g);
 		bs.show();
@@ -148,7 +156,7 @@ public class Game extends Canvas implements Runnable{
 	}
 	
 	//clamps certain values in place (doesn't let them go above or below the set threshold)
-	public static int clamp(int var, int min, int max) {
+	public int clamp(int var, int min, int max) {
 		if(var >= max)
 			return var = max;
 		else if(var <= min)
@@ -157,14 +165,38 @@ public class Game extends Canvas implements Runnable{
 			return var;
 	}
 	
-	
-	public static void main(String[] args) {
-		new Game();
-	}
-	
 	//getters and setters
 	public Handler getHandler() {
 		return handler;
 	}
+	
+	public HUD getHUD() {
+		return hud;
+	}
+	
+	public Spawn getSpawner() {
+		return spawner;
+	}
+	
+	public Menu getMenu() {
+		return menu;
+	}
+	
+	public GameOver getGameOver() {
+		return gameOver;
+	}
+	
+	public PlayGame getPlayGame() {
+		return playGame;
+	}
+	
+	public int getHeight() {
+		return HEIGHT;
+	}
+	
+	public int getWidth() {
+		return WIDTH;
+	}
+	
 
 }

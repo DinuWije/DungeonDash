@@ -1,7 +1,9 @@
-package com.ics4u.finalproj;
+package com.finalGame.gameObjects;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import com.finalGame.mainPackage.ID;
 
 public abstract class GameObject {
 	
@@ -57,7 +59,6 @@ public abstract class GameObject {
 	public int getVelY() {
 		return velY;
 	}
-	
 	public void setTempVelX(int tempVelX) {
 		this.tempVelX = tempVelX;
 	}

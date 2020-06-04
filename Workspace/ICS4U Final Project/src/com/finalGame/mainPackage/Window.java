@@ -1,4 +1,4 @@
-package com.ics4u.finalproj;
+package com.finalGame.mainPackage;
 
 import java.awt.Canvas;
 import java.awt.Dimension;

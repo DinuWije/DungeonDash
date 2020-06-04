@@ -1,12 +1,21 @@
-package com.ics4u.finalproj;
+package com.finalGame.gameScreens;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import com.finalGame.mainPackage.Game;
+import com.finalGame.mainPackage.HUD;
+
 public class GameOver {
 	
-	GameOver(){
+	private Game game;
+	private PlayGame playGame;
+	
+	public GameOver(Game game){
+		this.game = game;
+		this.playGame = game.getPlayGame();
+		
 	}
 	
 	public void tick() {
@@ -25,6 +34,14 @@ public class GameOver {
 		g.setFont(fnt2);
 		g.drawString("Press Space to Return to Menu", 100, 150);
 		
+	}
+	
+	public void resetValues(HUD hud) {
+		System.out.println(hud.getScore());
+		hud.setScore(0);
+		hud.setTempScore(0);
+		hud.setLevel(1);
+		playGame.getPlayer().setHealth(100);
 	}
 
 }

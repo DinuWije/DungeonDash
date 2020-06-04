@@ -1,19 +1,27 @@
-package com.ics4u.finalproj;
+package com.finalGame.mainPackage;
 
 
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.LinkedList;
+
+import com.finalGame.gameObjects.GameObject;
+import com.finalGame.gameScreens.PlayGame;
 
 public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
 	private boolean[] keyDown = new boolean[4];
 	private PlayGame playGame;
+	private Game game;
+	private LinkedList<GameObject> object;
 	
-	public KeyInput(Handler handler, PlayGame playGame) {
-		this.handler = handler;
-		this.playGame = playGame;
+	public KeyInput(Game game) {
+		this.game = game;
+		this.handler = game.getHandler();
+		this.playGame = game.getPlayGame();
+		this.object = game.getHandler().getObject();
 		
 		// sets initial positions of keys as UP
 		for (int i = 0; i < 4; i++) {
@@ -26,8 +34,8 @@ public class KeyInput extends KeyAdapter{
 		
 		//only checks key states if game is in GAME state
 		if (Game.gameState == Game.STATE.Game) {
-			for(int i = 0; i < handler.object.size(); i++) {
-				GameObject tempObject = handler.object.get(i);
+			for(int i = 0; i < object.size(); i++) {
+				GameObject tempObject = object.get(i);
 				//only applies key events to the player
 				if(tempObject.getId() == ID.Player) {
 					//key events for player 1
@@ -50,7 +58,7 @@ public class KeyInput extends KeyAdapter{
 				}
 			}
 		} else if(Game.gameState == Game.STATE.Menu) {
-			if(key == KeyEvent.VK_SPACE) playGame.startGame(handler, Game.hud);
+			if(key == KeyEvent.VK_SPACE) playGame.startGame(handler, game.getHUD());
 		} else if (Game.gameState == Game.STATE.GameOver) {
 			if(key == KeyEvent.VK_SPACE) Game.gameState = Game.STATE.Menu;
 		}
@@ -63,8 +71,8 @@ public class KeyInput extends KeyAdapter{
 		int key = e.getKeyCode();
 		
 		if (Game.gameState == Game.STATE.Game) {
-			for(int i = 0; i < handler.object.size(); i++) {
-				GameObject tempObject = handler.object.get(i);
+			for(int i = 0; i < object.size(); i++) {
+				GameObject tempObject = object.get(i);
 				
 				if(tempObject.getId() == ID.Player) {
 					//key events for player 1

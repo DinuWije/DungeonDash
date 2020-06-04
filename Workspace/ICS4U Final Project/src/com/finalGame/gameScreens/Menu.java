@@ -1,4 +1,4 @@
-package com.ics4u.finalproj;
+package com.finalGame.gameScreens;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -8,18 +8,20 @@ import java.awt.event.MouseEvent;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class Menu extends MouseAdapter{
+import com.finalGame.mainPackage.Game;
+import com.finalGame.mainPackage.Handler;
+
+public class Menu {
 	
 	private Game game;
 	private Handler handler;
 	private Random r;
 	
-	public Menu(Game game, Handler handler) {
+	public Menu(Game game) {
 		this.game = game;
-		this.handler = handler;
+		this.handler = game.getHandler();
 	}
-	
-	
+
 	public void tick() {
 		
 	}
