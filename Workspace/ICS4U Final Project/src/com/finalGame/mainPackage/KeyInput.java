@@ -16,6 +16,9 @@ public class KeyInput extends KeyAdapter{
 	private PlayGame playGame;
 	private Game game;
 	private LinkedList<GameObject> object;
+	private boolean spacePressed = false;
+	private boolean shiftPressed = false;
+	private String playerDirection = "North";
 	
 	public KeyInput(Game game) {
 		this.game = game;
@@ -41,21 +44,31 @@ public class KeyInput extends KeyAdapter{
 					//key events for player 1
 					if(key == KeyEvent.VK_W) { 
 						tempObject.setVelY(-5); 
-						keyDown[0] = true; 
+						keyDown[0] = true;
+						playerDirection = "North";
 						}
 					if(key == KeyEvent.VK_S) { 
 						tempObject.setVelY(5); 
 						keyDown[1] = true;
+						playerDirection = "South";
 						}
 					if(key == KeyEvent.VK_A) { 
 						tempObject.setVelX(-5); 
 						keyDown[2] = true;
+						playerDirection = "West";
 						}
 					if(key == KeyEvent.VK_D) { 
 						tempObject.setVelX(5); 
 						keyDown[3] = true;
+						playerDirection = "East";
 						}
 				}
+			}
+			if(key == KeyEvent.VK_SPACE) {
+				spacePressed = true;
+			}
+			if (key == KeyEvent.VK_SHIFT) {
+				shiftPressed = true;
 			}
 		} else if(Game.gameState == Game.STATE.Menu) {
 			if(key == KeyEvent.VK_SPACE) playGame.startGame(handler, game.getHUD());
@@ -88,7 +101,27 @@ public class KeyInput extends KeyAdapter{
 				}
 				
 			}
+			
+			if(key == KeyEvent.VK_SPACE) {
+				spacePressed = false;
+			}
+			
+			if (key == KeyEvent.VK_SHIFT) {
+				shiftPressed = false;
+			}
 		}
+	}
+	
+	public boolean getSpacePressed() {
+		return spacePressed;
+	}
+	
+	public boolean getShiftPressed() {
+		return shiftPressed;
+	}
+	
+	public String getPlayerDirection() {
+		return playerDirection;
 	}
 
 }

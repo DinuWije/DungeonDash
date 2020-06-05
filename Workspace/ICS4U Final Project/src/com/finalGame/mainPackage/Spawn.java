@@ -3,8 +3,10 @@ package com.finalGame.mainPackage;
 import java.util.Random;
 
 import com.finalGame.gameObjects.BasicEnemy;
+import com.finalGame.gameObjects.Bullet;
 import com.finalGame.gameObjects.DoorObject;
 import com.finalGame.gameObjects.KeyObject;
+import com.finalGame.gameObjects.Player;
 
 public class Spawn {
 	
@@ -41,23 +43,30 @@ public class Spawn {
 	}
 	
 	public void spawnEnemy() {
-		int xCoord = randInt(0, game.getWidth());
-		int yCoord = randInt(0, game.getHeight());
+		int xCoord = randInt(10, game.getWidth()-10);
+		int yCoord = randInt(60, game.getHeight()-10);
 		handler.addObject(new BasicEnemy(xCoord, yCoord, ID.BasicEnemy, 16, 16, game));
 	}
 	
 	public void spawnKey() {
-		int xCoord = randInt(0, game.getWidth());
-		int yCoord = randInt(0, game.getHeight());
+		int xCoord = randInt(10, game.getWidth()-10);
+		int yCoord = randInt(60, game.getHeight()-10);
 		handler.addObject(new KeyObject(xCoord, yCoord, ID.Key, 5, 5, game));
 	}
 	
 	public void spawnDoorTop() {
-		handler.addObject(new DoorObject(game.getWidth()/2, 0, ID.Door, 25, 25, game));
+		handler.addObject(new DoorObject(game.getWidth()/2, 60, ID.Door, 25, 25, game));
 	}
 	
 	public void spawnDoorBottom() {
-		handler.addObject(new DoorObject(game.getWidth()/2, game.getHeight(), ID.Door, 5, 5, game));
+		handler.addObject(new DoorObject(game.getWidth()/2,game.getHeight()-47, ID.Door, 25, 25, game));
+	}
+	
+	public void spawnBullet(int velX, int velY) {
+		Player player = game.getPlayGame().getPlayer();
+		int xCoord = player.getX();
+		int yCoord = player.getY();
+		handler.addObject(new Bullet(xCoord, yCoord, ID.Bullet, 8, 8, game, velX, velY));
 	}
 	
 

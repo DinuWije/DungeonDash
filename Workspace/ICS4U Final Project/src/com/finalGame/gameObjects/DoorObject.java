@@ -25,15 +25,6 @@ public class DoorObject extends GameObject{
 	public void tick() {
 		this.rect.x = x;
 		this.rect.y = y;
-		if (this.rect.intersects(player.rect)) {
-			System.out.println("Intersects");
-			if(player.checkKey()) {
-				System.out.println("Door Opens");
-				background.changeBackground();
-				game.getHandler().removeObject(this);
-				
-			}
-		}
 	}
 
 	@Override
@@ -41,6 +32,23 @@ public class DoorObject extends GameObject{
 		g.setColor(Color.blue);
 		g.fillRect(x, y, WIDTH , HEIGHT);
 		
+		if (this.rect.intersects(player.rect)) {
+			g.setColor(Color.white);
+			boolean shiftPressed = game.getKeyInput().getShiftPressed();
+			if(shiftPressed) {
+				if(player.checkKey()) {
+					changeMap();
+					game.getHandler().removeObject(this);
+				} else g.drawString("You don't have the key!", 240, game.getHeight()-50);
+			} else g.drawString("Press Shift to Open Door", 240, game.getHeight()-50);
+			
+		}
+		
+	}
+	
+	private void changeMap() {
+		game.getSpawner().spawnDoorTop();
+		player.setY(game.getHeight()-55);
 	}
 
 }

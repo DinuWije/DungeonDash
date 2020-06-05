@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import com.finalGame.gameObjects.Player;
 import com.finalGame.mainPackage.Game;
 import com.finalGame.mainPackage.HUD;
 
@@ -41,7 +42,12 @@ public class GameOver {
 		hud.setScore(0);
 		hud.setTempScore(0);
 		hud.setLevel(1);
-		playGame.getPlayer().setHealth(100);
+		Player player = playGame.getPlayer();
+		player.setHealth(100);
+		player.setX(game.getWidth()/2);
+		player.setY(game.getHeight()/2);
+		player.losesKey();
+		
 	}
 
 }

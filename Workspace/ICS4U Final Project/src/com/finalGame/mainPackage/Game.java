@@ -31,6 +31,7 @@ public class Game extends Canvas implements Runnable{
 	private Menu menu;
 	private PlayGame playGame;
 	private GameOver gameOver;
+	private KeyInput keyInput;
 	
 	//private int highScore;
 	//private String background = "/Users/dwijetunga/Documents/School 2019-2020/ICS4U/Final Project/Workspace/ICS4U Final Project/res/infiniteBackgroundTemp.png";	
@@ -58,7 +59,8 @@ public class Game extends Canvas implements Runnable{
 		playGame = new PlayGame(this);
 		gameOver = new GameOver(this);
 		hud = new HUD(this);
-		this.addKeyListener(new KeyInput(this));
+		keyInput = new KeyInput(this);
+		this.addKeyListener(keyInput);
 		
 		//creating game Window
 		new Window(WIDTH, HEIGHT, "Final Game", this);
@@ -196,6 +198,10 @@ public class Game extends Canvas implements Runnable{
 	
 	public int getWidth() {
 		return WIDTH;
+	}
+	
+	public KeyInput getKeyInput() {
+		return keyInput;
 	}
 	
 

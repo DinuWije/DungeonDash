@@ -28,7 +28,25 @@ public class Player extends GameObject{
 		
 		//prevents player from leaving bounds of game (doesn't force the player to bounce off walls)	
 		x = game.clamp(x, 0, game.getWidth()-33);
-		y = game.clamp(y, 0, game.getHeight()-55);
+		y = game.clamp(y, 60, game.getHeight()-55);
+		
+		String direction = game.getKeyInput().getPlayerDirection();
+		boolean spacePressed = game.getKeyInput().getSpacePressed();
+		
+		if(spacePressed) {
+			if(direction == "North") {
+				game.getSpawner().spawnBullet(0, 10);
+			}
+			if(direction == "South") {
+				game.getSpawner().spawnBullet(0, -10);
+			}
+			if(direction == "East") {
+				game.getSpawner().spawnBullet(10, 0);
+			}
+			if(direction == "West") {
+				game.getSpawner().spawnBullet(-10, 0);
+			}
+		}
 	}
 	
 	public void render(Graphics g) {
@@ -40,7 +58,7 @@ public class Player extends GameObject{
 		hasKey = true;
 	}
 	
-	public void dropsKey() {
+	public void losesKey() {
 		hasKey = false;
 	}
 	

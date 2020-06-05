@@ -2,6 +2,7 @@ package com.finalGame.gameScreens;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 import java.util.LinkedList;
 
 import com.finalGame.gameObjects.GameObject;
@@ -20,14 +21,17 @@ public class GameBackground {
 		this.game = game;
 	}
 	
-	public void setBackground(Graphics g, Spawn spawner){
-		if(backgroundNum == 1) {
-			spawner.spawnDoorTop();
-			g.setColor(Color.blue);
-		} else {
-			spawner.spawnDoorBottom();
-			g.setColor(Color.blue);
-		}
+	public void setBackground(Spawn spawner){
+		
+//		if(backgroundNum == 1) {
+//			spawner.spawnDoorTop();
+//			g.setColor(Color.blue);
+//		} else {
+//			spawner.spawnDoorBottom();
+//			g.setColor(Color.blue);
+//		}
+//		
+//		g.dispose();
 	}
 	
 	public void changeBackground() {

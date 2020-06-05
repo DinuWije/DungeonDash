@@ -37,7 +37,7 @@ public class Handler {
 		object = new LinkedList<GameObject>();
 	}
 	
-	protected LinkedList<GameObject> getObject(){
+	public LinkedList<GameObject> getObject(){
 		return object;
 	}
 	
