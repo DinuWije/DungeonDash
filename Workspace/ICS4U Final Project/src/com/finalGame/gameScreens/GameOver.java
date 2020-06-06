@@ -38,15 +38,9 @@ public class GameOver {
 	}
 	
 	public void resetValues(HUD hud) {
-		System.out.println(hud.getScore());
-		hud.setScore(0);
-		hud.setTempScore(0);
-		hud.setLevel(1);
-		Player player = playGame.getPlayer();
-		player.setHealth(100);
-		player.setX(game.getWidth()/2);
-		player.setY(game.getHeight()/2);
-		player.losesKey();
+		hud.resetValues();
+		playGame.getPlayer().resetValues();
+		game.getSpawner().setEnemyCount(0);
 		
 	}
 

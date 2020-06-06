@@ -12,9 +12,8 @@ public class HUD {
 	
 	private Game game;
 	private int HEALTH;
-	private int score = 0;
-	private int tempScore;
 	private int level = 1;
+	private int enemiesKilled = 0;
 	
 	HUD(Game game){
 		this.game = game;
@@ -23,7 +22,7 @@ public class HUD {
 	
 	
 	public void tick() {
-		score++;
+		
 	}
 	
 	public void render(Graphics g) {
@@ -31,6 +30,9 @@ public class HUD {
 		if (Game.gameState == Game.STATE.Game) {
 			//drawing text and any static boxes on the screen
 			g.setColor(Color.white);
+			
+			g.drawString("Level " + level, 225, 28);
+			g.drawString("Enemies Killed: " + enemiesKilled, 225, 44);
 			
 			g.fillRect(14, 14, 202, 34);
 			
@@ -59,14 +61,21 @@ public class HUD {
 		
 	}
 	
-	//bunch of getters and setters
-	public void setScore(int score) {
-		this.score = score;
+	public void enemyKilled() {
+		enemiesKilled++;
 	}
 	
-	public int getScore() {
-		return score;
+	public void levelPassed() {
+		level += 1;
+		game.getSpawner().newLevel(level);
 	}
+	
+	public void resetValues() {
+		level = 1;
+		enemiesKilled = 0;
+	}
+	
+	//bunch of getters and setters
 	
 	public int getLevel() {
 		return level;
@@ -76,12 +85,12 @@ public class HUD {
 		this.level = Level;
 	}
 	
-	public void setTempScore(int tempScore){
-		this.tempScore = tempScore;
+	public int getEnemiesKilled() {
+		return enemiesKilled;
 	}
 	
-	public int getTempScore() {
-		return tempScore;
+	public void setEnemiesKilled(int enemiesKilled) {
+		this.enemiesKilled = enemiesKilled;
 	}
 	
 }

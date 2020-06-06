@@ -5,6 +5,7 @@ import java.util.Random;
 import com.finalGame.gameObjects.BasicEnemy;
 import com.finalGame.gameObjects.Bullet;
 import com.finalGame.gameObjects.DoorObject;
+import com.finalGame.gameObjects.HealthPowerUp;
 import com.finalGame.gameObjects.KeyObject;
 import com.finalGame.gameObjects.Player;
 
@@ -12,32 +13,19 @@ public class Spawn {
 	
 	private Game game;
 	private Handler handler;
-	private HUD hud;
-	private int scoreKeep = 0;
-	private static Random rand = new Random();
-	private static int levelLength = 500;
-	
+	private Random rand = new Random();
+	private int enemyCount = 0;
 	
 	public Spawn(Game game) {
 		this.game = game;
 		this.handler = game.getHandler();
-		this.hud = game.getHUD();
 	}
 	
 	public void tick() {
-		//scoreKeep and levelLength are used to increment the level
-		scoreKeep++;
-		if(scoreKeep >= levelLength) {
-			scoreKeep = 0;
-			//hud.setLevel((hud.getLevel())+1);
-		}
+		
 	}
 	
-	public static int getLevelLength() {
-		return levelLength;
-	}
-	
-	public static int randInt(int min, int max) {
+	private int randInt(int min, int max) {
 	    int randomNum = rand.nextInt((max - min) + 1) + min;
 	    return randomNum;
 	}
@@ -46,12 +34,7 @@ public class Spawn {
 		int xCoord = randInt(10, game.getWidth()-10);
 		int yCoord = randInt(60, game.getHeight()-10);
 		handler.addObject(new BasicEnemy(xCoord, yCoord, ID.BasicEnemy, 16, 16, game));
-	}
-	
-	public void spawnKey() {
-		int xCoord = randInt(10, game.getWidth()-10);
-		int yCoord = randInt(60, game.getHeight()-10);
-		handler.addObject(new KeyObject(xCoord, yCoord, ID.Key, 5, 5, game));
+		enemyCount++;
 	}
 	
 	public void spawnDoorTop() {
@@ -62,12 +45,68 @@ public class Spawn {
 		handler.addObject(new DoorObject(game.getWidth()/2,game.getHeight()-47, ID.Door, 25, 25, game));
 	}
 	
-	public void spawnBullet(int velX, int velY) {
+	public void spawnBullet(String direction) {
 		Player player = game.getPlayGame().getPlayer();
+		int velX = 0;
+		int velY = 0;
 		int xCoord = player.getX();
 		int yCoord = player.getY();
+		
+		if(direction == "North") {
+			velY= -10;
+			xCoord+=12;
+		}
+		if(direction == "South") {
+			velY = 10;
+			xCoord+=12;
+		}
+		if(direction == "East") {
+			velX = 10;
+			yCoord+=12;
+		}
+		if(direction == "West") {
+			velX = -10;
+			yCoord+=12;
+		}
 		handler.addObject(new Bullet(xCoord, yCoord, ID.Bullet, 8, 8, game, velX, velY));
 	}
+	
+	public void enemyKilled(int xCoord, int yCoord) {
+		enemyCount--;
+		if(enemyCount <= 0) {
+			spawnKey(xCoord, yCoord);
+		}
+	}
+	
+	public void newLevel(int level) {
+		if (!(level == 1 || level == 2 || level == 3)) {
+			int enemies = randInt(level-2, level +2);
+			for (int i = 0; i < enemies; i++) {
+				spawnEnemy();
+			}
+		} else {
+			for(int i = 0; i < level; i++) {
+				spawnEnemy();
+			}
+		}
+	}
+	
+	public void spawnHealthPowerUp(int xCoord, int yCoord) {
+		int chance = randInt(0, 100);
+		if (chance < 33) {
+			handler.addObject(new HealthPowerUp(xCoord, yCoord, ID.HealthPowerUp, 5, 5, game));
+		}
+	}
+	
+	private void spawnKey(int xCoord, int yCoord) {
+		handler.addObject(new KeyObject(xCoord, yCoord, ID.Key, 5, 5, game));
+	}
+	
+	public void setEnemyCount(int enemyCount) {
+		this.enemyCount = enemyCount;
+	}
+	
+	
 	
 
 }

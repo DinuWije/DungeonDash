@@ -61,7 +61,7 @@ public class Game extends Canvas implements Runnable{
 		hud = new HUD(this);
 		keyInput = new KeyInput(this);
 		this.addKeyListener(keyInput);
-		
+	
 		//creating game Window
 		new Window(WIDTH, HEIGHT, "Final Game", this);
 	
@@ -139,6 +139,7 @@ public class Game extends Canvas implements Runnable{
 		}
 		
 		Graphics g = bs.getDrawGraphics();
+		
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);	
 		
@@ -151,6 +152,8 @@ public class Game extends Canvas implements Runnable{
 		}
 		else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.Pause) menu.render(g);
 		else if (gameState == STATE.GameOver) gameOver.render(g);
+		
+		
 		bs.show();
 		g.dispose();
 		

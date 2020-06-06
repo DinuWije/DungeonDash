@@ -26,8 +26,7 @@ public class PlayGame {
 	
 	public void startGame(Handler handler, HUD hud) {
 		handler.addObject(player);
-		spawner.spawnEnemy();
-		spawner.spawnKey();
+		spawner.newLevel(game.getHUD().getLevel());
 		spawner.spawnDoorTop();
 		Game.gameState = STATE.Game;
 	}

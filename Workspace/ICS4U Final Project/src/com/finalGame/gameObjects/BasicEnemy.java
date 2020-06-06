@@ -3,6 +3,7 @@ package com.finalGame.gameObjects;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
+import java.util.Random;
 
 import com.finalGame.gameScreens.PlayGame;
 import com.finalGame.mainPackage.Game;
@@ -13,15 +14,24 @@ public class BasicEnemy extends GameObject{
 	private Player player;
 	private Game game;
 	private LinkedList<GameObject> object;
-	private int enemyHealth = 50;
+	private final int baseEnemyHealth = 50;
+	private int enemyHealth = baseEnemyHealth;
+	private Random rand = new Random();
+	private int randX = randInt(1,2);
+	private int randY = randInt(1,2);
 	
 	public BasicEnemy(int x, int y, ID id, int WIDTH, int HEIGHT, Game game) {
 		super(x, y, id, WIDTH, HEIGHT);
-		this.velX = 2;
-		this.velY = 2;
+		velX = randX;
+		velY = randY;
 		this.game = game;
 		this.player = game.getPlayGame().getPlayer();
 	
+	}
+	
+	private int randInt(int min, int max) {
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+	    return randomNum;
 	}
 
 	public void tick() {
@@ -36,8 +46,8 @@ public class BasicEnemy extends GameObject{
 			this.setVelX(0);
 			this.setVelY(0);
 		} else {
-			this.setVelX(2);
-			this.setVelY(2);
+			this.setVelX(randX);
+			this.setVelY(randY);
 		}
 		
 		object = game.getHandler().getObject();
@@ -47,10 +57,9 @@ public class BasicEnemy extends GameObject{
 			
 			if (tempObject.id == ID.Bullet) {
 				if (tempObject.rect.intersects(this.rect)) {
-					enemyHealth--;
+					enemyHealth -= 5;
 				}
-			}
-			
+			}	
 		}
 		
 		this.rect.x = x;
@@ -61,16 +70,36 @@ public class BasicEnemy extends GameObject{
 		y = game.clamp(y, 60, game.getHeight()-60);
 		
 		if (enemyHealth <= 0) {
+			game.getHUD().enemyKilled();
+			game.getSpawner().enemyKilled(x, y);
+			game.getSpawner().spawnHealthPowerUp(x, y);
 			game.getHandler().removeObject(this);
 		}
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.orange);
+		g.setColor(Color.red); 
 		g.fillRect(x, y, WIDTH , HEIGHT);
 		
+		
+		g.setColor(Color.gray);
+		g.fillRect(x-5, y-5, 25, 2);
+		
+		//changes color of health bar based on health level
+		if (enemyHealth >= baseEnemyHealth/2) {
+			g.setColor(Color.green);
+			g.fillRect(x-5, y-5, enemyHealth/2, 2);
+		}
+		else if (enemyHealth >= ((baseEnemyHealth/2)/2) && enemyHealth < baseEnemyHealth/2) {
+			g.setColor(Color.orange);
+			g.fillRect(x-5, y-5, enemyHealth/2, 2);
+		}
+		else if(enemyHealth < ((baseEnemyHealth/2)/2) && enemyHealth > 0) {
+			g.setColor(Color.red);
+			g.fillRect(x-5, y-5, enemyHealth/2, 2);
+		}
+		
 	}
-	
 	
 
 }

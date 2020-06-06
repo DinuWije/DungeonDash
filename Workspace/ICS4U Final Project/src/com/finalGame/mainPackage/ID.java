@@ -6,6 +6,7 @@ public enum ID {
 	BasicEnemy(),
 	Key(),
 	Door(),
-	Bullet()
+	Bullet(),
+	HealthPowerUp()
 
 }

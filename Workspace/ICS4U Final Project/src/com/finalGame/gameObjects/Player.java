@@ -12,6 +12,7 @@ public class Player extends GameObject{
 	private Boolean hasKey = false;
 	private Game game;
 	private int Health = 100;
+	private int tick = 0;
 	
 	public Player(int x, int y, ID id, int WIDTH, int HEIGHT, Game game) {
 		super(x, y, id, WIDTH, HEIGHT);
@@ -20,6 +21,7 @@ public class Player extends GameObject{
 	}
 
 	public void tick() {
+		tick++;
 		x += velX;
 		y += velY;
 		this.rect.x = x;
@@ -34,23 +36,15 @@ public class Player extends GameObject{
 		boolean spacePressed = game.getKeyInput().getSpacePressed();
 		
 		if(spacePressed) {
-			if(direction == "North") {
-				game.getSpawner().spawnBullet(0, 10);
-			}
-			if(direction == "South") {
-				game.getSpawner().spawnBullet(0, -10);
-			}
-			if(direction == "East") {
-				game.getSpawner().spawnBullet(10, 0);
-			}
-			if(direction == "West") {
-				game.getSpawner().spawnBullet(-10, 0);
-			}
+			if(tick > 12) game.getSpawner().spawnBullet(direction);
 		}
+		
+		if (tick >= 13) tick = 0;
+		
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.white);
+		g.setColor(Color.blue);
 		g.fillRect(x, y, WIDTH , HEIGHT);
 	}
 	
@@ -64,6 +58,13 @@ public class Player extends GameObject{
 	
 	public boolean checkKey() {
 		return hasKey;
+	}
+	
+	public void resetValues() {
+		Health = 100;
+		x = (game.getWidth()/2);
+		y= (game.getHeight()/2);
+		losesKey();
 	}
 	
 	public int getHealth() {
