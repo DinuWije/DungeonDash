@@ -5,6 +5,13 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
+
+/**
+ * Using Jframe to setup main game window
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
 public class Window extends Canvas{
 
 	private static final long serialVersionUID = -8255319694373975038L;

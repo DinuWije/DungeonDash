@@ -11,12 +11,18 @@ import javax.swing.ImageIcon;
 
 import com.finalGame.gameObjects.Player;
 import com.finalGame.gameScreens.GameOver;
+import com.finalGame.gameScreens.Help;
 import com.finalGame.gameScreens.Menu;
 import com.finalGame.gameScreens.PlayGame;
 
 public class Game extends Canvas implements Runnable{
 	
 	/**
+	 * Main class of code
+	 * Instantiates many important variables
+	 * Contains main method
+	 * 
+	 * Authors: Dinu, Hita, & Asha
 	 * 
 	 */
 	
@@ -29,13 +35,12 @@ public class Game extends Canvas implements Runnable{
 	private HUD hud;
 	private Spawn spawner;
 	private Menu menu;
+	private Help help;
 	private PlayGame playGame;
 	private GameOver gameOver;
 	private KeyInput keyInput;
 	
-	//private int highScore;
-	//private String background = "/Users/dwijetunga/Documents/School 2019-2020/ICS4U/Final Project/Workspace/ICS4U Final Project/res/infiniteBackgroundTemp.png";	
-
+	
 	public enum STATE {
 		Menu,
 		Game,
@@ -54,6 +59,7 @@ public class Game extends Canvas implements Runnable{
 		//adding key objects to game
 		handler = new Handler();
 		menu = new Menu(this);
+		help = new Help(this);
 		//this.addMouseListener(menu);
 		spawner = new Spawn(this );
 		playGame = new PlayGame(this);
@@ -125,7 +131,8 @@ public class Game extends Canvas implements Runnable{
 //				highScore = hud.getScore();
 //				setHighScore();
 //			}
-		} else if (gameState == STATE.Menu || gameState == STATE.Help) menu.tick();
+		} else if (gameState == STATE.Menu) menu.tick();
+		else if (gameState == STATE.Help) help.tick();
 		else if (gameState == STATE.GameOver) gameOver.tick();
 		
 	}
@@ -150,7 +157,8 @@ public class Game extends Canvas implements Runnable{
 			hud.render(g);
 			playGame.render(g);
 		}
-		else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.Pause) menu.render(g);
+		else if (gameState == STATE.Menu) menu.render(g);
+		else if (gameState == STATE.Help) help.render(g);
 		else if (gameState == STATE.GameOver) gameOver.render(g);
 		
 		

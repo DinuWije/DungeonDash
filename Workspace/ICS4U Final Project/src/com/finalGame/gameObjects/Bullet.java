@@ -7,6 +7,12 @@ import java.util.LinkedList;
 import com.finalGame.mainPackage.Game;
 import com.finalGame.mainPackage.ID;
 
+/**
+ * Simple bullet class
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
 public class Bullet extends GameObject{
 	
 	Game game;
@@ -25,6 +31,7 @@ public class Bullet extends GameObject{
 		this.rect.x = x;
 		this.rect.y = y;
 		
+		//deletes bullet if it leaves game bounds
 		if(this.x > game.getWidth() || this.x < 0) {
 			game.getHandler().removeObject(this);
 		}

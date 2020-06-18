@@ -8,6 +8,14 @@ import com.finalGame.gameScreens.PlayGame;
 import com.finalGame.mainPackage.Game;
 import com.finalGame.mainPackage.ID;
 
+/**
+ * Creates a grey door
+ * Only lets players open door if they have a key
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public class DoorObject extends GameObject{
 	
 	private Game game;
@@ -26,6 +34,7 @@ public class DoorObject extends GameObject{
 		this.rect.x = x;
 		this.rect.y = y;
 		
+		//checks if player is on top of door && has a key
 		if (this.rect.intersects(player.rect)) {
 			boolean shiftPressed = game.getKeyInput().getShiftPressed();
 			if(shiftPressed) {

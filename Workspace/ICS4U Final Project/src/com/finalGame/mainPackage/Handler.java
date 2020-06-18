@@ -5,6 +5,14 @@ import java.util.LinkedList;
 
 import com.finalGame.gameObjects.GameObject;
 
+/**
+ * Keeps track of all in-game objects
+ * Helps delete from and add to exisiting lsit of objects
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public class Handler {
 	//keeps track of all objects in the game
 	private LinkedList<GameObject> object = new LinkedList<GameObject>();

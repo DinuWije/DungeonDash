@@ -6,6 +6,13 @@ import java.awt.Graphics;
 import com.finalGame.mainPackage.Game;
 import com.finalGame.mainPackage.ID;
 
+/**
+ * Code for simple health power up
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public class HealthPowerUp extends GameObject{
 	
 	Game game;

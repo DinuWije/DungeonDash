@@ -9,6 +9,15 @@ import java.util.LinkedList;
 import com.finalGame.gameObjects.GameObject;
 import com.finalGame.gameScreens.PlayGame;
 
+/**
+ * Takes in key input from keyboard
+ * Responds to key input in different ways
+ * Responses depend on the game state
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public class KeyInput extends KeyAdapter{
 	
 	private Handler handler;
@@ -72,8 +81,12 @@ public class KeyInput extends KeyAdapter{
 			}
 		} else if(Game.gameState == Game.STATE.Menu) {
 			if(key == KeyEvent.VK_SPACE) playGame.startGame(handler, game.getHUD());
+			else if(key == KeyEvent.VK_SHIFT) Game.gameState = Game.STATE.Help;
 		} else if (Game.gameState == Game.STATE.GameOver) {
 			if(key == KeyEvent.VK_SPACE) Game.gameState = Game.STATE.Menu;
+		}
+		else if (Game.gameState == Game.STATE.Help) {
+			if(key == KeyEvent.VK_BACK_SPACE) Game.gameState = Game.STATE.Menu;
 		}
 		//quits game on escape
 		if(key == KeyEvent.VK_ESCAPE) System.exit(1);

@@ -10,6 +10,14 @@ import com.finalGame.mainPackage.Game;
 import com.finalGame.mainPackage.ID;
 import com.finalGame.mainPackage.Spawn;
 
+/**
+ * Optional background graphics switcher
+ * UNUSED
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public class GameBackground {
 	
 	private int backgroundNum = 1;

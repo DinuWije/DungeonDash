@@ -7,6 +7,14 @@ import com.finalGame.gameScreens.PlayGame;
 import com.finalGame.mainPackage.Game;
 import com.finalGame.mainPackage.ID;
 
+/**
+ * Key that opens door
+ * Dropped by the last remaining enemy
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public class KeyObject extends GameObject{
 	
 	private Game game;

@@ -5,6 +5,15 @@ import java.awt.Rectangle;
 
 import com.finalGame.mainPackage.ID;
 
+/**
+ * Parent class for all game objects
+ * Has unimplemented methods that are used in child classes
+ * Lots of setters and getters for variables
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public abstract class GameObject {
 	
 	protected int x, y;

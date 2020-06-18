@@ -1,8 +1,6 @@
 package com.finalGame.gameScreens;
 
 import java.awt.Graphics;
-
-import com.finalGame.gameObjects.DoorObject;
 import com.finalGame.gameObjects.Player;
 import com.finalGame.mainPackage.Game;
 import com.finalGame.mainPackage.HUD;
@@ -10,6 +8,13 @@ import com.finalGame.mainPackage.Handler;
 import com.finalGame.mainPackage.ID;
 import com.finalGame.mainPackage.Spawn;
 import com.finalGame.mainPackage.Game.STATE;
+
+/**
+ * Starts the game and creates the player
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
 
 public class PlayGame {
 	

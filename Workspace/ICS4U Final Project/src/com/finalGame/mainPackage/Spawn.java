@@ -9,6 +9,13 @@ import com.finalGame.gameObjects.HealthPowerUp;
 import com.finalGame.gameObjects.KeyObject;
 import com.finalGame.gameObjects.Player;
 
+/**
+ * Spawns all entities into game
+ * Sometimes spawns randomly, and sometimes in specific spots
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
 public class Spawn {
 	
 	private Game game;

@@ -9,6 +9,18 @@ import com.finalGame.gameScreens.PlayGame;
 import com.finalGame.mainPackage.Game;
 import com.finalGame.mainPackage.ID;
 
+
+/**
+ * Main code for enemy
+ * Tracks enemy health
+ * Has enemy travel towards player
+ * Checks if enemy is shot
+ * Updates mini health bar for enemy
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public class BasicEnemy extends GameObject{
 	
 	private Player player;
@@ -35,6 +47,8 @@ public class BasicEnemy extends GameObject{
 	}
 
 	public void tick() {
+		
+		//enemy travels towards player
 		if (this.x < player.getX()) x += velX;
 		else if (this.x > player.getX())x -= velX;
 		
@@ -50,6 +64,7 @@ public class BasicEnemy extends GameObject{
 			this.setVelY(randY);
 		}
 		
+		//checks if enemy is hit by bullet
 		object = game.getHandler().getObject();
 		
 		for(int i = 0; i < object.size(); i++) {
@@ -69,6 +84,7 @@ public class BasicEnemy extends GameObject{
 		x = game.clamp(x, 0, game.getWidth()-38);
 		y = game.clamp(y, 60, game.getHeight()-60);
 		
+		//once enemy dies:
 		if (enemyHealth <= 0) {
 			game.getHUD().enemyKilled();
 			game.getSpawner().enemyKilled(x, y);

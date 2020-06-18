@@ -8,6 +8,13 @@ import com.finalGame.gameObjects.Player;
 import com.finalGame.mainPackage.Game;
 import com.finalGame.mainPackage.HUD;
 
+/**
+ * Game Over screen once player health reaches 0
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public class GameOver {
 	
 	private Game game;

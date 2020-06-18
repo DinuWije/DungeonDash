@@ -8,6 +8,15 @@ import java.awt.Graphics;
 import com.finalGame.gameObjects.Player;
 import com.finalGame.gameScreens.PlayGame;
 
+/**
+ * Displays player health
+ * Changes color based on health level
+ * Keeps track of level and enemies killed
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public class HUD {
 	
 	private Game game;

@@ -7,6 +7,13 @@ import com.finalGame.gameScreens.GameBackground;
 import com.finalGame.mainPackage.Game;
 import com.finalGame.mainPackage.ID;
 
+/**
+ * Main controls for player
+ * 
+ * Authors: Dinu, Hita, & Asha
+ * 
+ */
+
 public class Player extends GameObject{
 	
 	private Boolean hasKey = false;
@@ -35,6 +42,7 @@ public class Player extends GameObject{
 		String direction = game.getKeyInput().getPlayerDirection();
 		boolean spacePressed = game.getKeyInput().getSpacePressed();
 		
+		//creates bullet
 		if(spacePressed) {
 			if(tick > 12) game.getSpawner().spawnBullet(direction);
 		}
